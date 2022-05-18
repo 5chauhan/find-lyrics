@@ -56,7 +56,7 @@ form.addEventListener("submit", e => {
   e.preventDefault();
   const searchTerm = query.value.trim();
   if (!searchTerm) {
-    alert("Please type in a search term");
+    alert("Please enter valid Songname or Artist");
   } else {
     searchSongs(searchTerm);
   }
