@@ -3,7 +3,7 @@ const form=document.getElementById("form");
 const submit=document.getElementById("search-button");
 const resultSection=document.querySelector(".results");
 
-const url="https://api.lyrics.ovh";
+const url="https://api.lyrics.ovh/v1";
 
 async function searchSongs(query){
     const data=await fetch(`${url}/suggest/${query}`);
