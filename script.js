@@ -1,75 +1,58 @@
-const query=document.getElementById("query");
-const form=document.getElementById("form");
-const submit=document.getElementById("search-button");
-const resultSection=document.querySelector(".results");
+const apiURL = 'https://api.lyrics.ovh';
 
-const url="https://api.lyrics.ovh/v1";
-
-async function searchSongs(query){
-    const data=await fetch(`${url}/suggest/${query}`);
-    const jsonData=await data.json();
-    showData(jsonData);
+async function searchSongs(term) {
+    const res = await fetch(`${apiURL}/suggest/${term}`);
+    const data = await res.json();
+    showData(data);
 }
 
-function showData(json){
-  console.log(json);
-    resultSection.innerHTML=`
+const result = document.getElementById('result');
+
+function showData(data) {
+    result.innerHTML = `
     <ul class="songs">
-    ${json.data.map((song)=>`<li data-artist="${song.artist.name}"
-    data-audio-link="${song.preview}" data-songtitle="${song.title}"
-     class="songs-list">
-    <img  class="album-cover" src="${song.album.cover}">
-   <p class="name-artist">
-    <span class="song-title">
-     ${song.title} 
-        <span class="artist">- ${song.artist.name}</span>
-    </span></p>
-    </li>`).join(" ")}
-    </ul>`;
-    }
+      ${data.data.map(song =>
+        `<li>
+        <button class="btn" data-artist="${song.artist.name}" data-songtitle="${song.title}">${song.artist.name} - ${song.title}</button>
+        </li>`).join('')}
+    </ul>
+  `;
+}
 
-      async function getLyrics(artist,song,audio){
-         const res=await fetch(`${url}/v1/${artist}/${song}`);
-        const json= await res.json();
-        if(json.error){
-            resultSection.innerHTML=json.error;
-        }
-        else{
-            const lyrics= json.lyrics.replace(/(\r\n|\r|\n)/g,'<br>');
-            resultSection.innerHTML=`<div class="lyrics">
-            <h2 class=" lyrics-heading">${song}  <span class="lyrics-artist">
-            - ${artist}</span>
-            </h2>
-            <div class="audio-div">
-            <p class="preview"> Preview : </p>
-          <audio class="audio" controls>
-  <source src="${audio}" />
-</audio>
-</div>
-            <p class="lyrics-text"><span >${lyrics}</span></p>
-            </div>
-            `;
-        }
-    }
+async function getLyrics(artist, songTitle) {
+    const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+    const data = await res.json();
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  const searchTerm = query.value.trim();
-  if (!searchTerm) {
-    alert("Please enter valid Songname or Artist");
-  } else {
-    searchSongs(searchTerm);
-  }
+    if (data.error) {
+        result.innerHTML = data.error;
+    } else {
+        const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+
+        result.innerHTML = `
+            <h2><strong>${artist}</strong> - ${songTitle}</h2>
+            <span>${lyrics}</span>
+        `;
+    }
+}
+
+const form = document.getElementById('form');
+const search = document.getElementById('search');
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const searchTerm = search.value.trim();
+
+    searchTerm ? searchSongs(searchTerm) : alert('Please type in a search term');
 });
 
-resultSection.addEventListener('click',e=>{
-  const clickedEl = e.target;
-  console.log(clickedEl);
-  if (clickedEl.tagName === "LI" ) {
-    console.log("clicked");
-    const artist = clickedEl.getAttribute("data-artist");
-    const songTitle = clickedEl.getAttribute("data-songtitle");
-    const audio = clickedEl.getAttribute("data-audio-link");  
-    getLyrics(artist, songTitle,audio);
-  }
+result.addEventListener('click', e => {
+    const clickedEl = e.target;
+
+    if (clickedEl.tagName === 'BUTTON') {
+        const artist = clickedEl.getAttribute('data-artist');
+        const songTitle = clickedEl.getAttribute('data-songtitle');
+
+        getLyrics(artist, songTitle);
+    }
 });
