@@ -4,8 +4,11 @@
 
 body {
     background-color: rgb(199, 199, 199);
-    font-family: 'Permanent Marker', fantasy;
     margin: 0;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }
 
 button {
@@ -25,12 +28,12 @@ header {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    color: rgb(157, 255, 0);
+    color: rgb(28 173 148 / 81%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 100px 0px 150px 0px;
+    padding: 50px 0px 100px 0px;
     position: relative;
     font-size: 1.5em;
 }
@@ -51,7 +54,7 @@ header * {
 
 header h1 {
     margin: 0 0 40px;
-    text-shadow: #ff0000 4px 1px;
+    text-shadow: rgb(143 42 103 / 64%) 2px 1p;
 }
 
 form {
@@ -72,13 +75,13 @@ form button {
     position: absolute;
     top: -30px;
     right: -40px;
-    background-color: #50ff1b;
+    background-color: rgb(202, 194, 205);
     border: 0;
     border-radius: 50%;
     color: #fff;
-    font-size: 50px;
+    font-size: 30px;
     padding: 20px;
-    box-shadow: 0 0 20px 1px white;
+    box-shadow: 0 0 10px 1px white;
 }
 
 .btn {
