@@ -73,11 +73,11 @@ form input {
 
 form button {
     position: absolute;
-    top: -30px;
+    top: -20px;
     right: -40px;
     background-color: rgb(202, 194, 205);
     border: 0;
-    border-radius: 50%;
+    border-radius: 25%;
     color: #fff;
     font-size: 30px;
     padding: 20px;
@@ -88,7 +88,7 @@ form button {
     background-color: rgb(199, 199, 199);
     border: none;
     font-size: large;
-    font-weight: 600;
+    font-weight: 400;
     color: black;
     padding: 4px 10px;
 }
