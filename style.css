@@ -4,7 +4,7 @@
 
 body {
     background-color: rgb(199, 199, 199);
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'Permanent Marker', fantasy;
     margin: 0;
 }
 
@@ -21,7 +21,7 @@ input:focus {
 }
 
 header {
-    background-image: url('ly.jpg');
+    background-image: url('lyrics.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
